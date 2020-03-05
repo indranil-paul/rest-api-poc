@@ -8,7 +8,7 @@ class UserProfileManager(BaseUserManager):
     """
     Database model for manager profiles
     """
-    def createUser(self, email, name, password=None):
+    def create_user(self, email, name, password=None):
         """
         Create a new user profile
         """
@@ -21,11 +21,11 @@ class UserProfileManager(BaseUserManager):
         user.save(using=self._db)        
         return user
 
-    def createSuperUser(self, email, name, password):
+    def create_superuser(self, email, name, password):
         """
         Create and save new superuser profile
         """
-        user = self.createUser(email, name, password)
+        user = self.create_user(email, name, password)
         user.is_superuser = True # is_superuser is provided by the PermissionsMixin
         user.is_staff = True
         user.save(using=self._db)        
@@ -41,7 +41,7 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     
-    #objects = UserProfileManager()
+    objects = UserProfileManager()
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['name']
